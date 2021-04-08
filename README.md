@@ -4,6 +4,8 @@
 
 ## List of API GET calls
 
+This API has a call to get parts data and 4 calls to sort the data.
+
 Description | Call
 --- | ---
 All parts | /api/parts
