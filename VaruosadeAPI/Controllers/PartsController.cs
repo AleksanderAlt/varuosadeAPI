@@ -52,20 +52,21 @@ namespace VaruosadeAPI.Controllers
                 }
             }
 
-            var query = rows
-                .Skip((parameters.Page - 1) * parameters.PageSize)
-                .Take(parameters.PageSize);
+            var query = rows.AsQueryable();
+                
             if (parameters.Name != null) {
-                query = rows
+                query = query
                     .Where(part => part.Name.Contains(parameters.Name))
                     .OrderBy(part => part.Price);
             }
             if (parameters.Name != null && parameters.Sort.ToLower() == "price") {
-                query = rows
+                query = query
                     .Where(part => part.Name.Contains(parameters.Name))
                     .OrderBy(part => part.Price);
             }
-            return query.ToList();
+            return query.Skip((parameters.Page - 1) * parameters.PageSize)
+                        .Take(parameters.PageSize)
+                        .ToList();
         }
 
         // GET api/<PartsController>/5

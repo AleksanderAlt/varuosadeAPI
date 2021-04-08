@@ -4,11 +4,11 @@
 
 ## List of API calls
 
-*GET All parts /api/parts
-*GET Set page numbers /api/parts?Page={number}
-*GET Set page size /api/parts?pageSize={number}
-*GET Search by name /api/parts?Name={Name}
-*GET Sort by price /api/parts?Sort=price
+* GET All parts /api/parts
+* GET Set page numbers /api/parts?Page={number}
+* GET Set page size /api/parts?pageSize={number}
+* GET Search by name /api/parts?Name={Name}
+* GET Sort by price /api/parts?Sort=price
 
 ## Response body
     {
