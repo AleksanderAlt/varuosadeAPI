@@ -16,9 +16,9 @@ namespace VaruosadeAPI.Controllers
     public class PartsController : ControllerBase
     {
         // GET: api/<PartsController>
-        // /api/parts?page=3&pageSize=3&name=piip
+        // /api/parts?page=3&pageSize=3&name=piip&sort=name
         [HttpGet]
-        public IEnumerable<PartsDTO> Get([FromQuery] SearchParams parameters)
+        public IEnumerable<PartsDTO> Get([FromQuery] SearchParams parameters) // Võta aadressi tagant muutuja
         {
             List<PartsDTO> rows = new List<PartsDTO>();
 
@@ -33,8 +33,8 @@ namespace VaruosadeAPI.Controllers
                     var part = new PartsDTO();
                     part.Serial = columns[0];
                     part.Name = columns[1];
-                    part.Price = columns[8];
-                    part.PriceVAT = columns[10];
+                    part.Price = double.Parse(columns[8]);
+                    part.PriceVAT = double.Parse(columns[10]);
                     part.CarModel = columns[9];
 
                     int stockCount = 0;
@@ -57,7 +57,12 @@ namespace VaruosadeAPI.Controllers
                 .Take(parameters.PageSize);
             if (parameters.Name != null) {
                 query = rows
-                    .FindAll(part => part.Name.Contains(parameters.Name))
+                    .Where(part => part.Name.Contains(parameters.Name))
+                    .OrderBy(part => part.Price);
+            }
+            if (parameters.Name != null && parameters.Sort.ToLower() == "price") {
+                query = rows
+                    .Where(part => part.Name.Contains(parameters.Name))
                     .OrderBy(part => part.Price);
             }
             return query.ToList();

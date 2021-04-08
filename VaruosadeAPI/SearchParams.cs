@@ -21,5 +21,6 @@ namespace VaruosadeAPI
                 pageSize = Math.Min(value, maxPageSize);
             }
         }
+        public string Sort { get; set; } = "";
     }
 }
